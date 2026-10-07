@@ -1,146 +1,135 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
-import { Menu, X } from "lucide-react";
+import { Menu, X, ArrowUpRight } from "lucide-react";
 import { BRAND } from "@/config/brand";
 
 const navLinks = [
-  { name: "Services", href: "/services" },
-  { name: "Occasions", href: "/occasions" },
-  { name: "Work", href: "/work" },
   { name: "About", href: "/about" },
+  { name: "Services", href: "/services" },
+  { name: "Plans", href: "/#pricing" },
+  { name: "Contact", href: "/start-project" },
 ];
 
 export function Navbar() {
-  const [isScrolled, setIsScrolled] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
-    };
-    window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
+  const pathname = usePathname();
 
   return (
     <>
-      <motion.header
-        className={`fixed top-0 left-0 right-0 z-40 transition-all duration-300 ease-in-out ${
-          isScrolled
-            ? "bg-deepest-green/80 backdrop-blur-md py-4 border-b border-heritage-green/30"
-            : "bg-transparent py-6"
-        }`}
-        initial={{ y: -100 }}
-        animate={{ y: 0 }}
-        transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-      >
-        <div className="container mx-auto px-6 md:px-12 flex items-center justify-between">
-          <Link
-            href="/"
-            className="text-2xl font-serif tracking-wide text-ivory hover:text-leaf-green transition-colors"
-          >
-            {BRAND.shortName.toUpperCase()}
+      <header className="fixed inset-x-0 top-6 z-[1000] flex justify-center pointer-events-none px-4">
+        <nav className="pointer-events-auto pill-capsule flex items-center justify-between gap-4 md:gap-8 rounded-full px-6 py-3 text-white border border-[#6366F1]/30 shadow-[0_10px_35px_rgba(0,0,0,0.6)]">
+          {/* Logo */}
+          <Link aria-label={`${BRAND.name} — home`} className="group flex items-center gap-1.5" href="/">
+            <span className="font-heading text-lg md:text-xl font-bold tracking-tight text-white group-hover:text-white/90 transition-colors">
+              {BRAND.shortName}
+            </span>
+            <span className="w-2 h-2 rounded-full bg-[#5865F2]"></span>
           </Link>
 
-          {/* Desktop Nav */}
-          <nav className="hidden md:flex items-center space-x-8">
-            <ul className="flex space-x-8 text-sm uppercase tracking-widest text-ivory/80">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    href={link.href}
-                    className="hover:text-leaf-green transition-colors relative group"
-                  >
-                    {link.name}
-                    <span className="absolute -bottom-1 left-0 w-0 h-[1px] bg-leaf-green transition-all duration-300 group-hover:w-full"></span>
-                  </Link>
-                </li>
-              ))}
-            </ul>
+          {/* Desktop Nav Capsule Links */}
+          <div className="hidden items-center gap-1 md:flex bg-[#070a18]/60 rounded-full px-2 py-1 border border-[#6366F1]/20">
             <Link
-              href="/start-project"
-              className="bg-primary-green hover:bg-leaf-green hover:text-deepest-green text-ivory px-6 py-2.5 rounded-full text-sm font-medium transition-all duration-300 shadow-[0_0_15px_rgba(20,140,90,0.4)] hover:shadow-[0_0_25px_rgba(85,216,62,0.6)]"
+              className={`relative flex items-center gap-1 rounded-full px-4 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-200 ${
+                pathname === "/" ? "bg-[#5865F2] text-white shadow-[0_0_15px_rgba(88,101,242,0.5)]" : "text-white/70 hover:text-white"
+              }`}
+              href="/"
             >
-              Start a Project
+              Home
             </Link>
-          </nav>
 
-          {/* Mobile Menu Toggle */}
-          <button
-            className="md:hidden text-ivory p-2"
-            onClick={() => setIsMobileMenuOpen(true)}
-            aria-label="Open Menu"
-          >
-            <Menu className="w-6 h-6" />
-          </button>
-        </div>
-      </motion.header>
+            {navLinks.map((link) => {
+              const isActive = pathname === link.href;
+              return (
+                <Link
+                  key={link.name}
+                  className={`relative flex items-center gap-1 rounded-full px-4 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.16em] transition-all duration-200 ${
+                    isActive ? "bg-[#5865F2] text-white shadow-[0_0_15px_rgba(88,101,242,0.5)]" : "text-white/70 hover:text-white"
+                  }`}
+                  href={link.href}
+                >
+                  {link.name}
+                </Link>
+              );
+            })}
+          </div>
 
-      {/* Mobile Menu */}
+          {/* Right Action CTA Button */}
+          <div className="flex shrink-0 items-center gap-3">
+            <Link
+              className="btn-indigo items-center gap-1.5 rounded-full px-5 py-2 font-mono text-[11px] font-bold uppercase tracking-wider inline-flex"
+              href="/start-project"
+            >
+              Start Project
+              <ArrowUpRight className="w-3.5 h-3.5" />
+            </Link>
+
+            {/* Mobile Menu Button */}
+            <button
+              aria-label="Open menu"
+              className="group inline-flex h-9 w-9 items-center justify-center rounded-full text-white transition-colors duration-200 hover:bg-white/10 md:hidden"
+              onClick={() => setIsMobileMenuOpen(true)}
+            >
+              <Menu className="w-5 h-5 text-white" />
+            </button>
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile Navigation Drawer */}
       <AnimatePresence>
         {isMobileMenuOpen && (
           <motion.div
-            className="fixed inset-0 z-50 bg-deepest-green flex flex-col"
+            className="fixed inset-0 z-[1050] bg-[#070a18] flex flex-col p-6 overflow-y-auto"
             initial={{ opacity: 0, y: "-100%" }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: "-100%" }}
-            transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
+            transition={{ duration: 0.35 }}
           >
-            <div className="bg-grain fixed inset-0 pointer-events-none opacity-10"></div>
-            
-            <div className="flex justify-between items-center p-6 border-b border-heritage-green/30">
-              <span className="text-2xl font-serif tracking-wide text-ivory">
-                {BRAND.shortName.toUpperCase()}
+            <div className="flex justify-between items-center pb-6 border-b border-[#6366F1]/20">
+              <span className="font-heading text-2xl font-bold text-white">
+                {BRAND.shortName}<span className="text-[#5865F2]">.</span>
               </span>
               <button
                 onClick={() => setIsMobileMenuOpen(false)}
-                className="p-2 text-ivory hover:text-leaf-green transition-colors"
+                className="p-2 text-white hover:text-[#5865F2] transition-colors rounded-full hover:bg-white/10"
                 aria-label="Close Menu"
               >
-                <X className="w-8 h-8" />
+                <X className="w-7 h-7" />
               </button>
             </div>
 
-            <div className="flex-1 flex flex-col justify-center items-center space-y-8 relative z-10">
-              {/* Decorative motif */}
-              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-64 h-64 border border-heritage-green/20 rounded-full flex items-center justify-center opacity-20 pointer-events-none">
-                <div className="w-48 h-48 border border-heritage-green/40 rounded-full rotate-45"></div>
-              </div>
-
-              {navLinks.map((link, i) => (
-                <motion.div
-                  key={link.name}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ delay: 0.2 + i * 0.1 }}
-                  className="w-full text-center"
-                >
-                  <Link
-                    href={link.href}
-                    onClick={() => setIsMobileMenuOpen(false)}
-                    className="text-4xl md:text-5xl font-serif text-ivory hover:text-leaf-green transition-colors block py-2"
-                  >
-                    {link.name}
-                  </Link>
-                </motion.div>
-              ))}
-              <motion.div
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.6 }}
-                className="pt-8"
+            <div className="flex-1 flex flex-col justify-center space-y-6 py-8">
+              <Link
+                href="/"
+                onClick={() => setIsMobileMenuOpen(false)}
+                className="font-heading text-3xl font-bold text-white hover:text-[#5865F2] transition-colors"
               >
+                Home
+              </Link>
+              {navLinks.map((link) => (
+                <Link
+                  key={link.name}
+                  href={link.href}
+                  onClick={() => setIsMobileMenuOpen(false)}
+                  className="font-heading text-3xl font-bold text-white/80 hover:text-[#5865F2] transition-colors"
+                >
+                  {link.name}
+                </Link>
+              ))}
+
+              <div className="pt-6 border-t border-[#6366F1]/20 flex flex-col gap-4">
                 <Link
                   href="/start-project"
                   onClick={() => setIsMobileMenuOpen(false)}
-                  className="bg-primary-green text-ivory px-8 py-4 rounded-full text-lg font-medium transition-colors hover:bg-leaf-green hover:text-deepest-green"
+                  className="btn-indigo w-full text-center py-4 rounded-full font-mono text-sm uppercase tracking-wider flex items-center justify-center gap-2"
                 >
-                  Start Your Project
+                  Start Project <ArrowUpRight className="w-4 h-4" />
                 </Link>
-              </motion.div>
+              </div>
             </div>
           </motion.div>
         )}
@@ -148,3 +137,5 @@ export function Navbar() {
     </>
   );
 }
+
+

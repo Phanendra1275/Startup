@@ -1,82 +1,118 @@
 import Link from "next/link";
 import { BRAND } from "@/config/brand";
+import { ArrowUpRight, Globe, Video, Share2, Mail } from "lucide-react";
 
 export function Footer() {
   return (
-    <footer className="bg-deepest-green relative overflow-hidden pt-16 md:pt-24 pb-12 border-t border-heritage-green/30">
-      {/* Subtle background motif */}
-      <div className="absolute bottom-0 left-1/2 -translate-x-1/2 translate-y-1/2 w-[800px] h-[800px] rounded-full bg-forest-green/20 blur-[100px] pointer-events-none"></div>
+    <footer className="bg-[#070a18] relative overflow-hidden pt-16 pb-12 border-t border-[#6366F1]/20">
+      <div className="container mx-auto px-6 md:px-14 relative z-10">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch mb-12">
+          {/* Left Electric Blue Card */}
+          <div className="lg:col-span-5 bg-gradient-to-br from-[#5865F2] to-[#3B82F6] rounded-3xl p-8 md:p-10 flex flex-col justify-between text-white shadow-[0_10px_40px_rgba(88,101,242,0.4)]">
+            <div>
+              <span className="font-mono text-xs uppercase tracking-widest font-bold opacity-80 mb-4 block">
+                {BRAND.name} &bull; STUDIO
+              </span>
+              <h3 className="font-heading font-bold text-3xl sm:text-4xl mb-4 leading-tight">
+                Beyond The Timeline.
+              </h3>
+              <p className="text-white/80 text-sm font-sans leading-relaxed mb-8">
+                Crafting cinematic video edits, full-stack software, and digital experiences that elevate your brand.
+              </p>
+            </div>
 
-      <div className="container mx-auto px-6 md:px-12 relative z-10">
-        <div className="flex flex-col items-center text-center mb-16 md:mb-24">
-          <h2 className="text-4xl md:text-5xl lg:text-7xl font-serif text-ivory mb-8 max-w-3xl leading-tight">
-            Have an idea worth creating?
-          </h2>
-          <Link
-            href="/start-project"
-            className="group relative inline-flex items-center justify-center px-8 py-4 bg-primary-green hover:bg-leaf-green text-ivory hover:text-deepest-green transition-all duration-500 rounded-full text-base md:text-lg font-medium overflow-hidden shadow-[0_0_20px_rgba(20,140,90,0.3)] hover:shadow-[0_0_30px_rgba(85,216,62,0.5)]"
-          >
-            <span className="relative z-10 flex items-center gap-2">
-              Let’s build it together
-              <span className="group-hover:translate-x-1 transition-transform">→</span>
-            </span>
-          </Link>
+            <div className="flex items-center gap-3">
+              <a
+                href={BRAND.social.instagram}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#5865F2] flex items-center justify-center transition-all"
+              >
+                <Globe className="w-5 h-5" />
+              </a>
+              <a
+                href={BRAND.social.youtube}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="YouTube"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#5865F2] flex items-center justify-center transition-all"
+              >
+                <Video className="w-5 h-5" />
+              </a>
+              <a
+                href={BRAND.social.linkedin}
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="LinkedIn"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#5865F2] flex items-center justify-center transition-all"
+              >
+                <Share2 className="w-5 h-5" />
+              </a>
+              <a
+                href={`mailto:${BRAND.email}`}
+                aria-label="Email"
+                className="w-10 h-10 rounded-full bg-white/10 hover:bg-white text-white hover:text-[#5865F2] flex items-center justify-center transition-all"
+              >
+                <Mail className="w-5 h-5" />
+              </a>
+            </div>
+          </div>
+
+
+          {/* Right Dark Card Container */}
+          <div className="lg:col-span-7 bg-[#0d1233] border border-[#6366F1]/20 rounded-3xl p-8 md:p-10 flex flex-col justify-between">
+            <div className="grid grid-cols-2 sm:grid-cols-3 gap-8 mb-8">
+              <div>
+                <h4 className="font-mono text-[#818CF8] text-xs uppercase tracking-widest font-bold mb-4">Quick Links</h4>
+                <ul className="space-y-2.5 font-sans text-slate-300 text-xs">
+                  <li><Link href="/about" className="hover:text-white transition-colors">About Us</Link></li>
+                  <li><Link href="/services" className="hover:text-white transition-colors">Services</Link></li>
+                  <li><Link href="/#pricing" className="hover:text-white transition-colors">Pricing Plans</Link></li>
+                  <li><Link href="/start-project" className="hover:text-white transition-colors">Start Project</Link></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-mono text-[#818CF8] text-xs uppercase tracking-widest font-bold mb-4">Direct Contact</h4>
+                <ul className="space-y-2.5 font-sans text-slate-300 text-xs">
+                  <li><a href={`mailto:${BRAND.email}`} className="hover:text-white transition-colors truncate block">{BRAND.email}</a></li>
+                  <li><a href={`https://wa.me/${BRAND.whatsapp.replace(/\D/g, '')}`} target="_blank" rel="noopener noreferrer" className="hover:text-white transition-colors">{BRAND.phone}</a></li>
+                </ul>
+              </div>
+
+              <div>
+                <h4 className="font-mono text-[#818CF8] text-xs uppercase tracking-widest font-bold mb-4">Location</h4>
+                <p className="text-slate-300 text-xs font-sans leading-relaxed">
+                  Hyderabad, India &bull; Remote Worldwide
+                </p>
+              </div>
+            </div>
+
+            <div className="pt-6 border-t border-[#6366F1]/15 flex flex-wrap items-center justify-between gap-4">
+              <p className="text-slate-400 font-mono text-xs">
+                Have a project in mind? Let&rsquo;s get started today.
+              </p>
+              <Link
+                href="/start-project"
+                className="btn-indigo px-6 py-2.5 rounded-full font-mono text-xs font-bold uppercase tracking-wider inline-flex items-center gap-1.5"
+              >
+                Contact Us <ArrowUpRight className="w-3.5 h-3.5" />
+              </Link>
+            </div>
+          </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-8 pt-12 border-t border-heritage-green/40">
-          <div className="md:col-span-2">
-            <Link href="/" className="text-3xl font-serif text-ivory mb-4 inline-block">
-              {BRAND.name.toUpperCase()}
-            </Link>
-            <p className="text-ivory/60 max-w-sm mt-2 text-sm leading-relaxed">
-              {BRAND.tagline}
-            </p>
-          </div>
-
-          <div>
-            <h4 className="text-ivory font-medium uppercase tracking-widest text-xs mb-4 md:mb-6">Explore</h4>
-            <ul className="space-y-3 md:space-y-4 text-ivory/70 text-sm">
-              <li><Link href="/services" className="hover:text-leaf-green transition-colors">Services</Link></li>
-              <li><Link href="/occasions" className="hover:text-leaf-green transition-colors">Occasions</Link></li>
-              <li><Link href="/work" className="hover:text-leaf-green transition-colors">Selected Work</Link></li>
-              <li><Link href="/about" className="hover:text-leaf-green transition-colors">About Us</Link></li>
-            </ul>
-          </div>
-
-          <div>
-            <h4 className="text-ivory font-medium uppercase tracking-widest text-xs mb-4 md:mb-6">Connect</h4>
-            <ul className="space-y-3 md:space-y-4 text-ivory/70 text-sm">
-              <li>
-                <a href={BRAND.social.instagram} target="_blank" rel="noopener noreferrer" className="hover:text-leaf-green transition-colors">Instagram</a>
-              </li>
-              <li>
-                <a href={BRAND.social.youtube} target="_blank" rel="noopener noreferrer" className="hover:text-leaf-green transition-colors">YouTube</a>
-              </li>
-              <li>
-                <a href={BRAND.social.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-leaf-green transition-colors">LinkedIn</a>
-              </li>
-              <li>
-                <a href={`mailto:${BRAND.email}`} className="hover:text-leaf-green transition-colors">Email</a>
-              </li>
-            </ul>
-          </div>
-        </div>
-
-        <div className="mt-16 pt-8 border-t border-heritage-green/20 flex flex-col md:flex-row justify-between items-center text-ivory/40 text-xs gap-4">
-          <p>© {new Date().getFullYear()} {BRAND.name}. All rights reserved.</p>
+        <div className="pt-6 border-t border-[#6366F1]/15 flex flex-col sm:flex-row justify-between items-center text-slate-500 font-mono text-xs gap-3">
+          <p>&copy; {new Date().getFullYear()} {BRAND.name}. All rights reserved.</p>
           <div className="flex space-x-6">
-            <Link href="/privacy" className="hover:text-ivory transition-colors">Privacy Policy</Link>
-            <Link href="/terms" className="hover:text-ivory transition-colors">Terms of Service</Link>
+            <Link href="/privacy" className="hover:text-slate-300 transition-colors">Privacy Policy</Link>
+            <Link href="/terms" className="hover:text-slate-300 transition-colors">Terms of Service</Link>
           </div>
-        </div>
-        
-        {/* Minimal Indian decorative border at the bottom */}
-        <div className="w-full h-1 mt-8 opacity-20 flex justify-center space-x-2">
-           <div className="w-2 h-2 bg-heritage-green rotate-45"></div>
-           <div className="w-2 h-2 bg-heritage-green rotate-45"></div>
-           <div className="w-2 h-2 bg-heritage-green rotate-45"></div>
         </div>
       </div>
     </footer>
   );
 }
+
+

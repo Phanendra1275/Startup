@@ -1,18 +1,20 @@
 export const BRAND = {
-  name: "Nova Creative Studio",
-  shortName: "Nova",
+  name: "Madlancers",
+  shortName: "Madlancers",
   tagline: "Ideas deserve more than ordinary.",
-  email: "hello@novacreative.studio",
-  phone: "+91 98765 43210",
-  whatsapp: "+91 98765 43210",
+  email: "madlancers10@gmail.com",
+  phone: "+91 9705623697",
+  whatsapp: "+91 9705623697",
   social: {
-    instagram: "https://instagram.com/novacreative",
-    youtube: "https://youtube.com/@novacreative",
-    linkedin: "https://linkedin.com/company/nova-creative-studio",
+    instagram: "https://instagram.com/madlancers",
+    youtube: "https://youtube.com/@madlancers",
+    linkedin: "https://linkedin.com/company/madlancers",
   },
   seo: {
-    title: "Nova Creative Studio | Premium Indian Digital & Video Services",
-    description: "We create AI-powered films, digital experiences, designs, websites and visual stories for brands, businesses and meaningful occasions.",
-    url: "https://novacreative.studio",
+    title: "Madlancers | Premium Digital, Software & Creative Services",
+    description: "Madlancers provides expert custom software, mobile app development, web applications, UI/UX design, and digital solutions for brands and businesses.",
+    url: "https://madlancers.com",
   },
 };
+
+
